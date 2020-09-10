@@ -158,25 +158,26 @@ a:active {
 .section2_modal{
    
 }
-    
-.section2_modal-item{
-    display:none;
-    position:fixed; 
-    z-index:1;
-    overflow:auto;  
-    left:37%;
-    top:40%;
-    width:30%;
-    height: 45%;
-    padding:25px;
-    border-radius:20px;
-    background-color:white;
-    border:2px solid rgb(241, 241, 245);
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        
+    .section2_modal-item{
+        display:none;
+        position: fixed;
+        
+        z-index:1;
+        overflow:auto;       
+        left:37%;
+        top:40%;
+        width:30%;
+        height: 45%;
+        padding:25px;
+        border-radius:20px;
+        background-color:white;
+        border:2px solid rgb(241, 241, 245);
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 
-    animation-name: example;
-    animation-duration: 4s;
-}
+        animation-name: example;
+        animation-duration: 4s;
+    }
 
 .section2-modal-item_close{
     float:left;
