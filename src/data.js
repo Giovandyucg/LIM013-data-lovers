@@ -22,7 +22,7 @@ export const filterByName = (array,name) => {
 
 //computeStats(data)
 export const computeByStats = (array) => {
-  let newItem = array.reduce((a,b) => parseInt(a) + parseInt(b));
+  let newItem = array.slice(0,3).reduce((a,b) => parseInt(a) + parseInt(b));
   return newItem;
 };
  
