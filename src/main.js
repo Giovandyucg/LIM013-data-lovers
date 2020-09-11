@@ -9,6 +9,14 @@ const searchByName = document.querySelector("#searchByName");
 const index = document.querySelector("#index");
 const reset = document.querySelector("#reset");
 
+let showByType = (item) => {
+    let showForType = " ";
+
+    for ( var i = 0; i < item.type.length; i++ ) {
+        showForType = showForType + `<p class= "type${item.type[i]}"> ${item.type[i]}</p>`
+    }
+    return showForType;
+};
 
 const showByData = (array) => {
     table.innerHTML="";    
@@ -17,28 +25,30 @@ const showByData = (array) => {
     array.forEach((item) => {
         const puntos = computeByStats(Object.values(item.stats));
         const name= item.name[0].toUpperCase() + item.name.slice(1);
-       
-
         const showByItem = document.createElement("div");
         showByItem.classList.add("section2_table-item");
         showByItem.innerHTML=`
             <p class="section2-table-item_num">#${item.num}</p>
             <img id="open${item.img}" class="section2-table-item_img"src=${item.img}></img>
-            <p class="section2-table-item_name"> ${name}</p>
-            <p class="section2-table-item_type"> ${item.type}</p>
+            <p class="section2-table-item_name">${name}</p>
+            <div class="section2-table-item_type">
+            ${showByType(item)}
+            </div>
             ` ;
+            // ${showByType(item)}
         table.appendChild(showByItem)
                                         
         const showForData = () => {
             const showForItem = document.createElement("div");
             showForItem.classList.add("section2_modal-item");
+            // showForItem.classList.add("type" + item.type[0]);
             showForItem.style.display="block";
             showForItem.innerHTML= `
                 <span id="close${item.name}" class="section2-modal-item_close">&times;</span>
                 <p class="section2-modal-item_num">#${item.num}</p>
                 <img class="section2-modal-item_img" src=${item.img}></img>
                 <p class="section2-modal-item_name">${item.name}</p>
-                <p class="section2-modal-item_type">${item.type}</p>
+                ${showByType(item)}
                 <p class="section2-modal-item_wak">resistant:${item.resistant}</p>
                 <p class="section2-modal-item_wak">waknesses: ${item.weaknesses}</p>
                 <table>
@@ -48,7 +58,7 @@ const showByData = (array) => {
                             <th>Attack</th>
                             <th>Defense</th>
                             <th>Stamina</th>
-                            <th>PC</th>
+                            <th>CP</th>
                         </tr>
                         <tr>
                             <th></th>
@@ -71,9 +81,14 @@ const showByData = (array) => {
 
         const openForItem = document.getElementById("open" + item.img);
 
-        openForItem.addEventListener("click", showForData);
+        openForItem.addEventListener("click", function() {
+            showForData();
+        });
     });   
-}    
+};   
+
+
+
 
 //inicializando//
 showByData(data.pokemon)
