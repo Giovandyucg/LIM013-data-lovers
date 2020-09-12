@@ -20,7 +20,7 @@ nav{
 
 header{
     background-color:white;
-    background-image: url(images/pokebola.jpg);
+    background-image: url(images/pokeball.glb);
     background-repeat: no-repeat;     
     background-attachment:fixed;
     background-size: auto 400px;
@@ -236,17 +236,24 @@ a:active {
     margin-bottom:5%
 }
 
-/* .section2-modal-item_wak{
-    font-family:'Varela', sans-serif;
-    font-size:14px;
-    line-height: 25px;
-    color:white;
-    border-radius: 5px;
-    background-color:rgb(168, 82, 82);
-    margin-left:25%;
-    margin-right:25%;
-    margin-bottom:5%
-} */
+.accordion-content{
+    display: none;
+}
+
+
+
+#accordion1:before{
+    content: "\002B";
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+#accordion1.active:before{
+    content:"\2212";
+}
+
 
 table {
     font-size:10px;

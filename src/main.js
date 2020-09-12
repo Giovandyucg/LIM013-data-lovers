@@ -9,6 +9,7 @@ const searchByName = document.querySelector("#searchByName");
 const index = document.querySelector("#index");
 const reset = document.querySelector("#reset");
 
+
 let showByType = (item) => {
     let showForType = " ";
 
@@ -25,14 +26,15 @@ const showByData = (array) => {
     array.forEach((item) => {
         const puntos = computeByStats(Object.values(item.stats));
         const name= item.name[0].toUpperCase() + item.name.slice(1);
+        
         const showByItem = document.createElement("div");
         showByItem.classList.add("section2_table-item");
         showByItem.innerHTML=`
             <p class="section2-table-item_num">#${item.num}</p>
-            <img id="open${item.img}" class="section2-table-item_img"src=${item.img}></img>
+            <img id="open${item.img}" class="section2-table-item_img" src=${item.img}></img>
             <p class="section2-table-item_name">${name}</p>
             <div class="section2-table-item_type">
-            ${showByType(item)}
+                ${showByType(item)}
             </div>
             ` ;
             // ${showByType(item)}
@@ -45,48 +47,112 @@ const showByData = (array) => {
             showForItem.style.display="block";
             showForItem.innerHTML= `
                 <span id="close${item.name}" class="section2-modal-item_close">&times;</span>
+
+
                 <p class="section2-modal-item_num">#${item.num}</p>
                 <img class="section2-modal-item_img" src=${item.img}></img>
                 <p class="section2-modal-item_name">${item.name}</p>
-                ${showByType(item)}
-                <p class="section2-modal-item_wak">resistant:${item.resistant}</p>
-                <p class="section2-modal-item_wak">waknesses: ${item.weaknesses}</p>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <th>Attack</th>
-                            <th>Defense</th>
-                            <th>Stamina</th>
-                            <th>CP</th>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td>${item.stats["base-attack"]}</td>
-                            <td>${item.stats["base-defense"]}</td>
-                            <td>${item.stats["base-stamina"]}</td>
-                            <td>${puntos}</td>
-                        </tr>  
-                    </tbody>
-                </table> 
+
+                <div class="section2-table-item_type">
+                    ${showByType(item)}
+                </div>
+
+                <div class="section2-table-item_wak"
+                    <a href="#" id="accordion1${item.name}"class"accordion"-titulo>Resistant:</a>
+                    <div id="panel1" class="accordion-content"> 
+                        <p>${item.resistant}</p>
+                    </div>
+                </div>
+
+                <div class="section2-table-item_wak"
+                    <a href="#" id="accordion2${item.name}" class="accordion-titulo">Weaknesses:</a>
+                    <div id="panel2" class="accordion-content"> 
+                        <p>${item.weaknesses}</p>
+                    </div>
+                </div>
+
+                <div class="section2-table-item_wak"
+                    <a href="#" id="accordion3${item.name}" class="accordion-titulo">CP:</a>
+                    <div id="panel3" class="accordion-content"> 
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <th>Attack</th>
+                                    <th>Defense</th>
+                                    <th>Stamina</th>
+                                    <th>CP</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>${item.stats["base-attack"]}</td>
+                                    <td>${item.stats["base-defense"]}</td>
+                                    <td>${item.stats["base-stamina"]}</td>
+                                        <td>${puntos}</td>
+                                </tr>  
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
                 `;
+                
             table.appendChild(showForItem);
+
+            const accordion1 = document.getElementById("accordion1" + item.name);
+            const accordion2 = document.getElementById("accordion2" + item.name);
+            const accordion3 = document.getElementById("accordion3" + item.name);
+            const panel1 = document.getElementById("panel1");
+            const panel2 = document.getElementById("panel2");
+            const panel3 = document.getElementById("panel3");
+                
+            accordion1.addEventListener("click", () => {
+                if (panel1.style.display==="block") {
+                    panel1.style.display="none";
+                   accordion1.classList.remove("active");
+                } else {
+                    panel1.style.display="block";
+                    accordionTitulo.classList.add("active");
+                }
+            });
             
+            accordion2.addEventListener("click", () => {
+                if (panel2.style.display==="block") {
+                    panel2.style.display="none";
+                    accordion2.classList.remove("active");
+                } else {
+                    panel2.style.display="block";
+                    accordion2.classList.add("active");
+                }
+            });
+            
+            accordion3.addEventListener("click", () => {
+                if (panel3.style.display==="block") {
+                    panel3.style.display="none";
+                    accordion3.classList.remove("active");
+                } else {
+                    panel3.style.display="block";
+                    accordion3.classList.add("active");
+                }
+            });
+
             const closeForItem= document.getElementById("close" + item.name);
             
-            closeForItem.addEventListener("click", function() {
+            closeForItem.addEventListener("click", () => {
                 showForItem.style.display="none";
             });
         };
 
         const openForItem = document.getElementById("open" + item.img);
 
-        openForItem.addEventListener("click", function() {
+        openForItem.addEventListener("click", () => {
             showForData();
-        });
-    });   
-};   
+        });            
+    
+           
+    });
+};
 
+        
 
 
 
