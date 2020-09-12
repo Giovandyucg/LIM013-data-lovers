@@ -10,6 +10,7 @@ const index = document.querySelector("#index");
 const reset = document.querySelector("#reset");
 
 
+
 let showByType = (item) => {
     let showForType = " ";
 
@@ -31,7 +32,7 @@ const showByData = (array) => {
         showByItem.classList.add("section2_table-item");
         showByItem.innerHTML=`
             <p class="section2-table-item_num">#${item.num}</p>
-            <img id="open${item.img}" class="section2-table-item_img" src=${item.img}></img>
+            <img id="open${item.name}" class="section2-table-item_img" src=${item.img}></img>
             <p class="section2-table-item_name">${name}</p>
             <div class="section2-table-item_type">
                 ${showByType(item)}
@@ -47,91 +48,79 @@ const showByData = (array) => {
             showForItem.style.display="block";
             showForItem.innerHTML= `
                 <span id="close${item.name}" class="section2-modal-item_close">&times;</span>
-
-
                 <p class="section2-modal-item_num">#${item.num}</p>
                 <img class="section2-modal-item_img" src=${item.img}></img>
                 <p class="section2-modal-item_name">${item.name}</p>
 
-                <div class="section2-table-item_type">
+                <div class="section2-modal-item_type">
                     ${showByType(item)}
                 </div>
 
-                <div class="section2-table-item_wak"
-                    <a href="#" id="accordion1${item.name}"class"accordion"-titulo>Resistant:</a>
-                    <div id="panel1" class="accordion-content"> 
-                        <p>${item.resistant}</p>
-                    </div>
-                </div>
+                <div>
+                    <p id="optionByRes${item.name}" class="section2-modal-item_stats">Resistant:</p>
+                    <p id="resultByRes${item.name}" class="section2-modal-item_stats-content">${item.resistant}</p>
+                   
+                    <p id="optionByWak${item.name}" class="section2-modal-item_stats">Weaknesses:</p>
+                    <p id="resultByWak${item.name}" class="section2-modal-item_stats-content">${item.weaknesses}</p>
 
-                <div class="section2-table-item_wak"
-                    <a href="#" id="accordion2${item.name}" class="accordion-titulo">Weaknesses:</a>
-                    <div id="panel2" class="accordion-content"> 
-                        <p>${item.weaknesses}</p>
-                    </div>
-                </div>
-
-                <div class="section2-table-item_wak"
-                    <a href="#" id="accordion3${item.name}" class="accordion-titulo">CP:</a>
-                    <div id="panel3" class="accordion-content"> 
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <th>Attack</th>
-                                    <th>Defense</th>
-                                    <th>Stamina</th>
-                                    <th>CP</th>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td>${item.stats["base-attack"]}</td>
-                                    <td>${item.stats["base-defense"]}</td>
-                                    <td>${item.stats["base-stamina"]}</td>
-                                        <td>${puntos}</td>
-                                </tr>  
-                            </tbody>
-                        </table> 
-                    </div>
+                    <p id="optionBySta${item.name}" class="section2-modal-item_stats">CP:</p>
+                    <table id="resultBySta${item.name}" class="section2-modal-item_stats-content">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <th>Attack</th>
+                                <th>Defense</th>
+                                <th>Stamina</th>
+                                <th>CP</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>${item.stats["base-attack"]}</td>
+                                <td>${item.stats["base-defense"]}</td>
+                                <td>${item.stats["base-stamina"]}</td>
+                                    <td>${puntos}</td>
+                            </tr>  
+                        </tbody>
+                    </table>   
                 </div>
                 `;
                 
             table.appendChild(showForItem);
 
-            const accordion1 = document.getElementById("accordion1" + item.name);
-            const accordion2 = document.getElementById("accordion2" + item.name);
-            const accordion3 = document.getElementById("accordion3" + item.name);
-            const panel1 = document.getElementById("panel1");
-            const panel2 = document.getElementById("panel2");
-            const panel3 = document.getElementById("panel3");
+            const optionByRes = document.getElementById("optionByRes" + item.name);
+            const optionByWak = document.getElementById("optionByWak" + item.name);
+            const optionBySta = document.getElementById("optionBySta" + item.name);
+            const resultByRes = document.getElementById("resultByRes" + item.name);
+            const resultByWak = document.getElementById("resultByWak" + item.name);
+            const resultBySta = document.getElementById("resultBySta" + item.name);
                 
-            accordion1.addEventListener("click", () => {
-                if (panel1.style.display==="block") {
-                    panel1.style.display="none";
-                   accordion1.classList.remove("active");
+            optionByRes.addEventListener("click", () => {
+                if (resultByRes.style.display==="block") {
+                    resultByRes.style.display="none";
+                    optionByRes.classList.remove("active");
                 } else {
-                    panel1.style.display="block";
-                    accordionTitulo.classList.add("active");
+                    resultByRes.style.display="block";
+                    optionByRes.classList.add("active");
                 }
             });
             
-            accordion2.addEventListener("click", () => {
-                if (panel2.style.display==="block") {
-                    panel2.style.display="none";
-                    accordion2.classList.remove("active");
+            optionByWak.addEventListener("click", () => {
+                if (resultByWak.style.display==="block") {
+                    resultByWak.style.display="none";
+                    optionByWak.classList.remove("active");
                 } else {
-                    panel2.style.display="block";
-                    accordion2.classList.add("active");
+                    resultByWak.style.display="block";
+                    optionByWak.classList.add("active");
                 }
             });
             
-            accordion3.addEventListener("click", () => {
-                if (panel3.style.display==="block") {
-                    panel3.style.display="none";
-                    accordion3.classList.remove("active");
+            optionBySta.addEventListener("click", () => {
+                if (resultBySta.style.display==="block") {
+                    resultBySta.style.display="none";
+                    optionBySta.classList.remove("active");
                 } else {
-                    panel3.style.display="block";
-                    accordion3.classList.add("active");
+                    resultBySta.style.display="block";
+                    optionBySta.classList.add("active");
                 }
             });
 
@@ -142,7 +131,7 @@ const showByData = (array) => {
             });
         };
 
-        const openForItem = document.getElementById("open" + item.img);
+        const openForItem = document.getElementById("open" + item.name);
 
         openForItem.addEventListener("click", () => {
             showForData();
