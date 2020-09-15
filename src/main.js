@@ -38,32 +38,45 @@ const showByData = (array) => {
                 ${showByType(item)}
             </div>
             ` ;
-            // ${showByType(item)}
+    
         table.appendChild(showByItem)
                                         
         const showForData = () => {
+
             const showForItem = document.createElement("div");
             showForItem.classList.add("section2_modal-item");
             // showForItem.classList.add("type" + item.type[0]);
             showForItem.style.display="block";
             showForItem.innerHTML= `
                 <span id="close${item.name}" class="section2-modal-item_close">&times;</span>
-                <p class="section2-modal-item_num">#${item.num}</p>
+                
+                <div class="section2-modal-item-card"> 
+                                
+                <div class="one">
+                                
+                <img class="section2-modal-item_img" src=${item.img}></img>
+                <p class="section2-modal-item_name">${item.evolution["prev-evolution"][0].name}</p>
+                <p class="section2-modal-item_name">${item.evolution["prev-evolution"][0]["candy-cost"]}</p>
+                
+                </div>
+                
+                <div class="two">
+                
                 <img class="section2-modal-item_img" src=${item.img}></img>
                 <p class="section2-modal-item_name">${item.name}</p>
 
-                <div class="section2-modal-item_type">
-                    ${showByType(item)}
+                <div class="section2-table-item_type">
+                ${showByType(item)}
                 </div>
 
-                <div>
-                    <p id="optionByRes${item.name}" class="section2-modal-item_stats">Resistant:</p>
+                <div class="section2-modal-item_stats">
+                    <p id="optionByRes${item.name}" class="section2-modal-item_stats-titulo">Resistant:</p>
                     <p id="resultByRes${item.name}" class="section2-modal-item_stats-content">${item.resistant}</p>
                    
-                    <p id="optionByWak${item.name}" class="section2-modal-item_stats">Weaknesses:</p>
+                    <p id="optionByWak${item.name}" class="section2-modal-item_stats-titulo">Weaknesses:</p>
                     <p id="resultByWak${item.name}" class="section2-modal-item_stats-content">${item.weaknesses}</p>
 
-                    <p id="optionBySta${item.name}" class="section2-modal-item_stats">CP:</p>
+                    <p id="optionBySta${item.name}" class="section2-modal-item_stats-titulo">CP:</p>
                     <table id="resultBySta${item.name}" class="section2-modal-item_stats-content">
                         <tbody>
                             <tr>
@@ -83,8 +96,20 @@ const showByData = (array) => {
                         </tbody>
                     </table>   
                 </div>
-                `;
+
+                </div>
                 
+                <div id="prox${item.name}" class="three">
+
+                <img class="section2-modal-item_img" src=${item.img}></img>
+                <p class="section2-modal-item_name">${item.evolution["next-evolution"][0].name}</p>
+                <p class="section2-modal-item_name">${item.evolution["next-evolution"][0]["candy-cost"]}</p>
+                
+                </div>
+
+                </div>
+                `;
+
             table.appendChild(showForItem);
 
             const optionByRes = document.getElementById("optionByRes" + item.name);
@@ -152,7 +177,6 @@ showByData(data.pokemon)
 // filterByName//
 searchByName.addEventListener("keyup", (e) => {
     table.innerHTML="";
-    modal.innerHTML="";
     selectByType.selectedIndex = 0;  
     selectByName.selectedIndex = 0;  
     if (e.keyCode === 13) {
@@ -164,10 +188,25 @@ searchByName.addEventListener("keyup", (e) => {
     }
 });
 
+const inputByName = document.querySelector("#inputByName");
+
+inputByName.addEventListener("keyup", (e) => {
+    table.innerHTML="";
+    selectByType.selectedIndex = 0;  
+    selectByName.selectedIndex = 0;  
+    if (e.keyCode === 13) {
+    const showForName = inputByName.value.toLowerCase();
+    const showCardName = filterByName(data.pokemon,showForName);
+    showByData(showCardName);
+    inputByName.value=""; 
+    index.innerHTML=" / " + showForName;
+    }
+});
+
+
 //sortByName//
 selectByName.addEventListener("change", () => {
     table.innerHTML="";
-    modal.innerHTML="";
     const showByName = selectByName.value;
     const showListName = sortByName(data.pokemon,showByName);
     showByData(showListName);
@@ -179,7 +218,6 @@ selectByName.addEventListener("change", () => {
 // filterByType//
 selectByType.addEventListener("change", () => {
     table.innerHTML="";
-    modal.innerHTML="";
     const showByType = selectByType.value;
     const showListType = filterByType(data.pokemon,showByType);
     showByData(showListType);
@@ -192,7 +230,6 @@ selectByType.addEventListener("change", () => {
 
 reset.addEventListener("click", () => {
     table.innerHTML="";
-    modal.innerHTML="";
     showByData(data.pokemon);
     selectByName.selectedIndex = 0;
     selectByType.selectedIndex = 0;    
@@ -200,3 +237,13 @@ reset.addEventListener("click", () => {
 });
 
 
+// console.log(data.pokemon[0]);
+// console.log(data.pokemon[0].name);
+// console.log(data.pokemon[0].stats["base-defense"]);
+
+// array []
+// objeto . / [""]
+
+// console.log(data.pokemon[0].evolution["next-evolution"][0].num);
+// console.log(data.pokemon[0].evolution["next-evolution"][0].name);
+// console.log(data.pokemon[0].evolution["next-evolution"][0]["candy-cost"]);
